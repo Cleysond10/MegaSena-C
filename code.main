@@ -1,0 +1,64 @@
+#include <iostream>
+#include <time.h>
+#include <stdlib.h>
+
+using namespace std;
+
+//this method check if there is repeated numbers. if find, return true
+bool Repetidos(int valores[],int tam, int valor){
+    for(int i = 0;i<tam;i++){
+        if(valores[i]==valor)
+            return true;
+    }
+    return false;
+}
+
+//this method use random numbers to insert into the array
+void Sorteio(int numeros[],int quantNumeros,int Limite){
+    srand(time(NULL));
+
+    int v;
+    for(int i=0;i<quantNumeros;i++){
+        v = rand() % Limite;
+        while(Repetidos(numeros,i,v)){
+            v = rand() % Limite;
+        }
+        numeros[i] = v;
+    }
+
+}
+
+int main(){
+
+    int n, m;
+
+    //ask user how many games he/she wants to play
+    printf("Quantos jogos deseja comprar ?");
+    scanf("%d", &n);
+    //validate if the typed number is right
+    while(n <= 0){
+            printf("Error: Escolha uma quantidade de jogos válida!");
+            scanf("%d", &n);
+    }
+
+    //ask user how many dozens each bet will have
+    printf("Quantas dezenas deseja jogar?");
+    scanf("%d", &m);
+    //validate if the typed number is right
+    while(m < 6 || m > 15){
+            printf("Error: Escolha dezenas entre 6 e 15.");
+            scanf("%d", &m);
+    }
+
+    //this function use the data that the user inserted before and generate the random numbers using two 'for' and calling the method 'Sorteio'
+        for (int j = 0; j < n; j++){
+            int numeros[m];
+            Sorteio(numeros,m,61);
+            for(int i = 0; i < m; i++){
+                cout<<numeros[i]<<" - ";
+            }
+        }
+
+    //return 0, because the method 'main' is an Integer
+    return 0;
+}
